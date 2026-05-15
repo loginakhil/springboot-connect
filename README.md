@@ -166,3 +166,28 @@ Standard `protoc-gen-grpc-*` clients (Java/Kotlin/Go/Python/etc.) point at
 
 Proto sources are generated into `build/generated/source/proto/main/{java,grpc}`
 by the `com.google.protobuf` Gradle plugin during the `generateProto` task.
+
+## Run with Docker Compose
+
+A multi-stage `Dockerfile` builds the `bootJar` with Gradle and runs it on
+`eclipse-temurin:17-jre`. `docker-compose.yml` exposes all three ports
+(`8080`, `9090`, `9091`) on the host.
+
+```bash
+docker compose up --build
+```
+
+Detached:
+
+```bash
+docker compose up -d --build
+```
+
+Stop:
+
+```bash
+docker compose down
+```
+
+Once running, the `curl` and `grpcurl` examples above work unchanged against
+`localhost`.
